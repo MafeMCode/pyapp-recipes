@@ -1,5 +1,6 @@
 import requests
-import json
+import random
+import utils
 
 # URL to fetch the JSON data
 url = "https://dummyjson.com/recipes"
@@ -8,7 +9,7 @@ url = "https://dummyjson.com/recipes"
 response = requests.get(url)
 data = response.json()  # Parse the response JSON data
 
-# Define the Recipe class (same as before)
+# Definimos la clase Recipe
 class Recipe:
     def __init__(self, id, name, ingredients, instructions, prep_time, cook_time, servings, difficulty, cuisine, calories_per_serving, tags, user_id, image, rating, review_count, meal_type):
         self.id = id
@@ -57,3 +58,54 @@ recipes = [Recipe(
     review_count=recipe['reviewCount'],
     meal_type=recipe['mealType']
 ) for recipe in data['recipes']]
+
+def menu():
+    while True:
+        print("Menu:")
+        print("1. Buscar receta")
+        print("2. Receta del día")
+        print("3. Receta aleatoria")
+        print("0. Salir")
+        
+        choice = input("¿Qué se te antoja hoy?: ")
+        
+        if choice == "1":
+            #Aquí irá el menu de busqueda
+            menuBusqueda()
+        elif choice == "2":
+            #Aquí buscará la receta del día
+            print()
+            print(recipes[utils.dailyRecipeNumber(len(recipes))])
+            print()
+        elif choice == "3":
+            #Aquí generará una receta aleatoria
+            print()
+            print(random.choice(recipes))
+            print()
+        elif choice == "0":
+            print("  .--,--.")
+            print("  `.  ,.'   ")
+            print("   |___|    ¡Que aproveche!")
+            print("   :o o:    ")
+            print("  _`~^~'_   ")
+            print("/'   ^   `\\")
+            
+            break
+        else:
+            print("Invalid option, please try again.")
+
+def menuBusqueda():
+    print()
+    
+print("""
+  ____      ____     ___    __  ____  ____   ___       ____      ___     ____  __ __ 
+ /    |    |    \   /  _]  /  ]|    ||    \ /  _]     /    |    |   \   /    ||  |  |
+|  o  |    |  D  ) /  [_  /  /  |  | |  o  )  [_     |  o  |    |    \ |  o  ||  |  |
+|     |    |    / |    _]/  /   |  | |   _/    _]    |     |    |  D  ||     ||  ~  |
+|  _  |    |    \ |   [_/   \_  |  | |  | |   [_     |  _  |    |     ||  _  ||___, |
+|  |  |    |  .  \|     \     | |  | |  | |     |    |  |  |    |     ||  |  ||     |
+|__|__|    |__|\_||_____|\____||____||__| |_____|    |__|__|    |_____||__|__||____/ 
+""")
+
+    
+menu()
